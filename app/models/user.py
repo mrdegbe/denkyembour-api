@@ -21,5 +21,7 @@ class User(Base):
             values_callable=lambda enum_cls: [e.value for e in enum_cls],
         )
     )
+    department = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
+    last_login = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
