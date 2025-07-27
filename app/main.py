@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.database import Base, engine  # ✅ Use your new core.database
-from app.api.v1 import auth
+from app.api.v1 import auth, user as user_router  # ✅ Import your routers
 
 # ✅ Create all tables — in prod you'd do this with Alembic, not at runtime
 Base.metadata.create_all(bind=engine)
@@ -27,3 +27,4 @@ app.add_middleware(
 
 # ✅ Include routers
 app.include_router(auth.router)
+app.include_router(user_router.router)

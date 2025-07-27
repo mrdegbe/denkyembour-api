@@ -29,14 +29,16 @@ def create_user(db: Session, user_in: UserCreate):
     password_hash = hash_password(password)
 
     try:
+        # 3. Create the user        
         db_user = User(
             id=uuid4(),
             full_name=user_in.full_name,
             email=user_in.email,
             hashed_password=password_hash,  # Store the hashed password
             role=user_in.role,
-            department=user_in.department,
             is_active=True,
+            department=user_in.department,
+            last_login=None,  # Set to None initially
         )
         db.add(db_user)
         db.commit()
