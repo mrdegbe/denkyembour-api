@@ -36,7 +36,7 @@ def create_user(db: Session, user_in: UserCreate):
             email=user_in.email,
             hashed_password=password_hash,  # Store the hashed password
             role=user_in.role,
-            is_active=True,
+            is_active=user_in.is_active,
             department=user_in.department,
             last_login=None,  # Set to None initially
         )
@@ -49,6 +49,12 @@ def create_user(db: Session, user_in: UserCreate):
         db.rollback()
         raise HTTPException(status_code=500, detail="Failed to create user") from e
 
+
+def list_users(db: Session, skip: int = 0, limit: int = 100):
+    """
+    Retrieve a list of users with optional pagination.
+    """
+    return db.query(User).offset(skip).limit(limit).all()
 
 # def update_user(db: Session, user_id: int, user_update: UserUpdate):
 #     user = db.query(User).filter(User.id == user_id).first()

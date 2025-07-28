@@ -5,7 +5,7 @@ from app.api.dependencies import get_db
 from app.models.user import User
 from app.schemas.user import UserCreate, UserOut  # You need to define these schemas
 from uuid import uuid4
-from app.crud.user import create_user as crud_user
+from app.crud.user import create_user as crud_user, list_users as crud_list_users
 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -17,3 +17,13 @@ def create_user(user_in: UserCreate, db: Session = Depends(get_db)):
     except Exception as e:
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/", response_model=list[UserOut])
+def get_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    try:
+        return crud_list_users(db, skip=skip, limit=limit)
+    except Exception as e:
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+

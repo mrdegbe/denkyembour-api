@@ -6,7 +6,6 @@ from uuid import UUID
 
 
 class UserBase(BaseModel):
-    id: UUID
     email: EmailStr
     full_name: str
     role: RoleEnum
@@ -19,9 +18,11 @@ class UserCreate(UserBase):
 
 
 class UserOut(UserBase):
+    id: UUID
     department: str
     is_active: bool
     last_login: Optional[datetime] = None
+    created_at: datetime
 
     class Config:
         orm_mode = True
