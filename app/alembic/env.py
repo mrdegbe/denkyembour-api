@@ -22,7 +22,9 @@ target_metadata = Base.metadata
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode."""
-    url = config.get_main_option("sqlalchemy.url") or DATABASE_URL  # fallback to env var if needed
+    url = (
+        config.get_main_option("sqlalchemy.url") or DATABASE_URL
+    )  # fallback to env var if needed
     context.configure(
         url=url,
         target_metadata=target_metadata,
