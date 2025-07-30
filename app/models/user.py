@@ -2,6 +2,7 @@ from uuid import uuid4
 from datetime import datetime
 from sqlalchemy import Column, String, Boolean, DateTime, Enum
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 
 from app.core.database import Base
 from app.models.enums import RoleEnum
@@ -25,3 +26,11 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     last_login = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+
+    # Relationship with News
+    # Assuming a user can author multiple news posts
+    news_posts = relationship("News", back_populates="author")
+
+    def __repr__(self):
+        return f"<User(id={self.id}, email={self.email}, role={self.role})>"
