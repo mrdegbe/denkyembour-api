@@ -45,12 +45,17 @@ class News(Base):
     content = Column(Text, nullable=False)
     # image_url = Column(String(512), nullable=True)  # Specify length
     # publish_date = Column(Boolean, default=False, index=True)  # Add index
-    author_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True, default=uuid4)
+    author_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id"),
+        nullable=False,
+        index=True,
+        default=uuid4,
+    )
     publish_date = Column(DateTime, default=datetime.utcnow, index=True)
     views = Column(Integer, default=0)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-
 
     author = relationship("User", back_populates="news_posts")
 

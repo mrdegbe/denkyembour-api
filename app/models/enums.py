@@ -6,6 +6,7 @@ class RoleEnum(str, enum.Enum):
     editor = "editor"
     viewer = "viewer"
 
+
 class NewsCategory(str, enum.Enum):
     news = "News"
     announcement = "Announcement"

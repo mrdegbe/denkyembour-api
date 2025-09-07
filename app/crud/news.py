@@ -4,6 +4,7 @@ from app.schemas.news import NewsCreate, NewsUpdate
 from datetime import datetime
 from typing import List, Optional
 
+
 # Create a news post
 def create_news(db: Session, news: NewsCreate) -> News:
     data = news.dict(exclude={"publish_date"})
@@ -14,8 +15,15 @@ def create_news(db: Session, news: NewsCreate) -> News:
     db.refresh(db_news)
     return db_news
 
+
 # Get all news posts (optional filters: status, category)
-def get_all_news(db: Session, skip: int = 0, limit: int = 10, status: Optional[str] = None, category: Optional[str] = None) -> List[News]:
+def get_all_news(
+    db: Session,
+    skip: int = 0,
+    limit: int = 10,
+    status: Optional[str] = None,
+    category: Optional[str] = None,
+) -> List[News]:
     query = db.query(News)
     if status:
         query = query.filter(News.status == status)
@@ -23,9 +31,11 @@ def get_all_news(db: Session, skip: int = 0, limit: int = 10, status: Optional[s
         query = query.filter(News.category == category)
     return query.offset(skip).limit(limit).all()
 
+
 # Get single news post by ID
 def get_news_by_id(db: Session, news_id: int) -> Optional[News]:
     return db.query(News).filter(News.id == news_id).first()
+
 
 # Update news post
 def update_news(db: Session, news_id: int, updates: NewsUpdate) -> Optional[News]:
@@ -38,6 +48,7 @@ def update_news(db: Session, news_id: int, updates: NewsUpdate) -> Optional[News
     db.refresh(db_news)
     return db_news
 
+
 # Delete news post
 def delete_news(db: Session, news_id: int) -> bool:
     db_news = db.query(News).filter(News.id == news_id).first()
@@ -46,6 +57,7 @@ def delete_news(db: Session, news_id: int) -> bool:
     db.delete(db_news)
     db.commit()
     return True
+
 
 # Increment views count
 def increment_views(db: Session, news_id: int) -> Optional[News]:

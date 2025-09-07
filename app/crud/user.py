@@ -20,6 +20,13 @@ def login_user(db: Session, email: str, password: str):
     if not user or not verify_password(password, user.hashed_password):
         raise HTTPException(status_code=400, detail="Invalid email or password")
 
+    # Check if active
+    if not user.is_active:
+        raise HTTPException(
+            status_code=403,
+            detail="Account is inactive. Please contact the administrator.",
+        )
+
     # Update last login
     user.last_login = datetime.utcnow()
     db.add(user)

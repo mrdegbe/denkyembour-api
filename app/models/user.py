@@ -27,7 +27,6 @@ class User(Base):
     last_login = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
-
     # Relationship with News
     # Assuming a user can author multiple news posts
     news_posts = relationship("News", back_populates="author")

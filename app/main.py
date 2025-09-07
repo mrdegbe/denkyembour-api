@@ -28,4 +28,4 @@ app.add_middleware(
 # ✅ Include routers
 app.include_router(auth.router)
 app.include_router(user_router.router)
-app.include_router(news.router) 
+app.include_router(news.router)
