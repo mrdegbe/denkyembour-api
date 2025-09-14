@@ -34,7 +34,7 @@ class AuthorOut(BaseModel):
     full_name: str
 
     class Config:
-        orm_mode = True
+        model_config = {"from_attributes": True}
 
 
 class NewsOut(NewsBase):
@@ -42,4 +42,4 @@ class NewsOut(NewsBase):
     author: AuthorOut
 
     class Config:
-        orm_mode = True
+        model_config = {"from_attributes": True}
