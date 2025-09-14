@@ -19,6 +19,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://localhost:8080",
+        "https://denkyembour-cms.vercel.app"
     ],  # Replace with allowed origins in production!
     allow_credentials=True,
     allow_methods=["*"],
