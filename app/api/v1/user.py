@@ -33,7 +33,7 @@ def get_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.put("/{user_id}", response_model=UserOut)
+@router.put("/{user_id}/", response_model=UserOut)
 def update_user_endpoint(
     user_id: str, user_update: UserCreate, db: Session = Depends(get_db)
 ):
@@ -44,7 +44,7 @@ def update_user_endpoint(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.delete("/{user_id}", status_code=status.HTTP_200_OK)
+@router.delete("/{user_id}/", status_code=status.HTTP_200_OK)
 def delete_user_endpoint(user_id: str, db: Session = Depends(get_db)):
     try:
         return crud_delete_user(db, user_id)
